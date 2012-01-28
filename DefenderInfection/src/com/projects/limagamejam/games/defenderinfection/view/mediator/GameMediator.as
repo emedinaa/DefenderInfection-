@@ -53,7 +53,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function initMove():void 
 		{
-			timer = new Timer(500);
+			timer = new Timer(200);
 			timer.addEventListener(TimerEvent.TIMER, TIMER_handler);
 			timer.start();
 		}
