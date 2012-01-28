@@ -1,9 +1,11 @@
 package com.projects.limagamejam.games.defenderinfection.view.mediator 
 {
 	import air.update.utils.Constants;
+	import com.greensock.TweenLite;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
+	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.events.TimerEvent;
@@ -27,12 +29,22 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var ultPosi:int = -1;//ultima posicion 
 		public var enenMap:int = 0 ;//enemigos en mapa
 		private var creationTime:int = 0;//tiempo de demora en creacion
+<<<<<<< HEAD
 		public var arrDead:Array = [];
+=======
+		
+		private var enableMoveEn:Boolean = true;
+		private var _area:AreaView;
+		private var context:ClientContext
+		
+>>>>>>> 6cf8ef469ebd29bdcf059caef768face189f7829
 		public function GameMediator($view:Sprite, $data:*) 
 		{
 			super($view);
 			mview = GameView($view);
-			_data=$data
+			_data = $data
+			context = $data.context
+			
 			initView()
 		}
 		override public function initView():void 
@@ -63,10 +75,50 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function TIMER_handler(e:TimerEvent):void 
 		{
+<<<<<<< HEAD
 			moveEnemy();
 			createEnemy();
+=======
+			if (enableMoveEn)
+			{
+				moveEnemy()
+				createEnemy();
+				if (arrE.length > 5 && GameConstant.FRECUENCYOUT-1==creationTime) {
+					var i:int = Math.random() * 1000 %( GameConstant.NUMENEMY-5);
+					arrE[i].active = false;
+					enenMap--;
+				}
+				validateCollition() 
+			}
+>>>>>>> 6cf8ef469ebd29bdcf059caef768face189f7829
 			e.updateAfterEvent();
 			
+		}
+		
+		private function validateCollition():void 
+		{
+			for (var i:int = 0; i < arrE.length; i++) 
+			{
+				if (hero.hitTestObject(arrE[i]))
+				{
+					enableMoveEn = false
+					showArea();
+					return;
+				}
+			}
+		}
+		
+		private function showArea():void 
+		{
+			cmdHero.unexecute()
+			_area = new AreaView();
+			_area.bg.width=context.stage.stageWidth
+			_area.bg.height = context.stage.stageHeight
+			
+			_area.mc_base.scaleX=0
+			_area.mc_base.scaleY= 0
+			TweenLite.to(_area.mc_base, 0.8, { scaleX:1, scaleY:1 } );
+			mview.addChild(_area)
 		}
 		public function createHero():void {
 			hero = new HeroUI();
