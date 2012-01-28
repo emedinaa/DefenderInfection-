@@ -17,7 +17,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	{
 		public var mview:GameView;
 		public var hero:HeroUI;
-		private var arrE:Vector.<EnemyUI>=new Vector.<EnemyUI>();
+		public var arrE:Vector.<EnemyUI>;
 		private var map:MapUI;
 		private var cmdHero:CmdMoveHero;
 		private var cmdShoot:CmdShootHero;
@@ -25,7 +25,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var _data:*;
 		private var radio:int = GameConstant.RADIO;
 		private var ultPosi:int = -1;//ultima posicion 
-		private var enenMap:int = 0 ;//enemigos en mapa
+		public var enenMap:int = 0 ;//enemigos en mapa
 		private var creationTime:int = 0;//tiempo de demora en creacion
 		
 		public function GameMediator($view:Sprite, $data:*) 
@@ -39,15 +39,18 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			
 			super.initView();
+			arrE = new Vector.<EnemyUI>();
+
+			
 			createMap();
 			createHero();
 			createEnemy();
+			
 			cmdHero = new CmdMoveHero(this, _data.context)
 			cmdShoot = new CmdShootHero(this, _data.context)
 			
 			cmdHero.execute()
 			initMove();
-			
 			cmdShoot.execute();
 		}
 		
