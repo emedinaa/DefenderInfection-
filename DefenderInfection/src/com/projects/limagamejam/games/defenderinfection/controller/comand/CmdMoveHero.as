@@ -44,7 +44,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			
 			var pos:Point = Point.polar(GameConstant.RADIO_HERO,- angle * Math.PI / 180+Math.PI/2)
 			_hero.x=GameConstant.PATH.x+pos.x
-			_hero.y=GameConstant.PATH.y+pos.y
+			_hero.y = GameConstant.PATH.y + pos.y
+			_hero.angle=angle
 			
 			trace("dx ",angle)
 		}

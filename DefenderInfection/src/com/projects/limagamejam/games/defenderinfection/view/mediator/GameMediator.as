@@ -3,6 +3,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import air.update.utils.Constants;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
+	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.events.TimerEvent;
@@ -14,11 +15,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	 */
 	public class GameMediator extends AbstractMediator
 	{
-		private var mview:GameView;
+		public var mview:GameView;
 		public var hero:HeroUI;
 		private var arrE:Vector.<EnemyUI>=new Vector.<EnemyUI>();
 		private var map:MapUI;
 		private var cmdHero:CmdMoveHero;
+		private var cmdShoot:CmdShootHero;
 		private var timer:Timer;
 		private var _data:*;
 		private var radio:int = GameConstant.RADIO;
@@ -41,8 +43,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			createHero();
 			createEnemy();
 			cmdHero = new CmdMoveHero(this, _data.context)
+			cmdShoot = new CmdShootHero(this, _data.context)
+			
 			cmdHero.execute()
 			initMove();
+			
+			cmdShoot.execute();
 		}
 		
 		private function initMove():void 

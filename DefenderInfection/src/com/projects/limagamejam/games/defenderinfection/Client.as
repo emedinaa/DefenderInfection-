@@ -16,7 +16,6 @@ package com.projects.limagamejam.games.defenderinfection
 		public function Client() 
 		{
 			super();
-			
 		}
 		
 		override protected function app(e:Event = null):void 
