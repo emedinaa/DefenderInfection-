@@ -3,6 +3,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 	import com.projects.core.iview.AbstractContext;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.core.iview.AbstractView;
+	import com.projects.limagamejam.games.defenderinfection.view.mediator.GameMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.HomeMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.IntructionMediator;
 	import flash.display.SpreadMethod;
@@ -64,6 +65,8 @@ package com.projects.limagamejam.games.defenderinfection.view
 					return  new HomeMediator(new HomeView(), $data);
 				case "instruction":
 					return  new IntructionMediator(new InstructionView(), $data);
+				case "game":
+					return  new GameMediator(new GameView(), $data);
 			}
 			return obj;
 		}

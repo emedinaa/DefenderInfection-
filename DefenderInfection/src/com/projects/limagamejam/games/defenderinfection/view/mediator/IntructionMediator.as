@@ -38,7 +38,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
-			context.changeView("home", data) ;
+			context.changeView("game", data) ;
 		}
 		override public function destroy():void 
 		{
