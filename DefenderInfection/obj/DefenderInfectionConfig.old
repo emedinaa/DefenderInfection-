@@ -24,8 +24,13 @@
       <path-element>D:\DEV\FD\FD4\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
+<<<<<<< HEAD
       <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\lib\Library.swc</path-element>
       <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\lib\greensock.swc</path-element>
+=======
+      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\Library.swc</path-element>
+      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\greensock.swc</path-element>
+>>>>>>> 4c2a799f7e43741661194ba3e4b2938841fd8486
     </library-path>
   </compiler>
   <file-specs>
