@@ -51,8 +51,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 				case Keyboard.RIGHT:
 					_hero.x -= 3;
 					break;
-			}
-			
+			}			
 		}
 		
 		public function unexecute():void 
