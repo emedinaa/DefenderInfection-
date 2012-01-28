@@ -16,13 +16,15 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	{
 		private var mview:GameView;
 		public var hero:HeroUI;
-		private var arrE:Vector.<EnemyUI>;
-		private var arrPosition:Array;
+		private var arrE:Vector.<EnemyUI>=new Vector.<EnemyUI>();
 		private var map:MapUI;
 		private var cmdHero:CmdMoveHero;
 		private var timer:Timer;
 		private var _data:*;
 		private var radio:int = GameConstant.RADIO;
+		private var ultPosi:int = -1;//ultima posicion 
+		private var enenMap:int = 0 ;//enemigos en mapa
+		private var creationTime:int = 0;//tiempo de demora en creacion
 		
 		public function GameMediator($view:Sprite, $data:*) 
 		{
@@ -53,6 +55,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private function TIMER_handler(e:TimerEvent):void 
 		{
 			moveEnemy();
+			createEnemy();
+			if (arrE.length > 5 && GameConstant.FRECUENCYOUT-1==creationTime) {
+				var i:int = Math.random() * 1000 %( GameConstant.NUMENEMY-5);
+				arrE[i].active = false;
+				enenMap--;
+			}
 			e.updateAfterEvent();
 			
 		}
@@ -71,38 +79,70 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			
 		}
 		public function  createEnemy():void {
-			createPosition();
-			arrE = new Vector.<EnemyUI>();
-			for (var i:int = 0; i < arrPosition.length; i++) 
-			{
-				var aux:EnemyUI = new EnemyUI();
-				aux.x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, arrPosition[i]*Math.PI/180).x;
-				aux.y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, arrPosition[i] * Math.PI / 180).y;
-				aux.rotation = arrPosition[i]-90;
-				arrE.push(aux);				
-				mview.addChild(aux);
+			creationTime++;
+			
+			if (enenMap < GameConstant.NUMENEMY && creationTime==GameConstant.FRECUENCYOUT) {
+				var position:int = createPosition();
+				if (arrE.length < GameConstant.NUMENEMY&&!enemyDead()) {					
+					var aux:EnemyUI = new EnemyUI();
+					aux.x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, position*Math.PI/180).x;
+					aux.y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
+					aux.rotation = position - 90;
+					aux.position = position;
+					aux.active = true;//para ver si esta muerto
+					aux.radio = GameConstant.RADIO;
+					arrE.push(aux);				
+					mview.addChild(aux);
+				}else {
+					for (var i:int = 0; i < arrE.length; i++) 
+					{
+						if (arrE[i].active == false) {
+							arrE[i].x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, position*Math.PI/180).x;
+							arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
+							arrE[i].rotation = position - 90;
+							arrE[i].position = position;
+							arrE[i].active = true;//para ver si esta muerto
+							arrE[i].radio = GameConstant.RADIO;
+							break;
+						}	
+					}
+				}
+				
+				enenMap++;
 			}
+			if (creationTime == GameConstant.FRECUENCYOUT)
+				creationTime = 0;
 		}
-		public function createPosition():void {
-			arrPosition = [];
-			var rango:int = 20;
-			var ant:int = -1;
-			for (var i:int = 0; i < GameConstant.NUMENEMY; ) {
-				var band:int = Math.random()*1000 % GameConstant.RADIO;
-				if (band != ant && Math.abs(band-ant)>rango) {
-					ant = band;
-					arrPosition.push(band);
-					trace(band);
-					i++;
+		public function enemyDead():Boolean {
+			var r:Boolean = false;
+			for (var i:int = 0; i < arrE.length; i++){ 
+				if (arrE[i].active == false) {
+					r = true;
+					break;
 				}
 			}
+			return r;
+		}
+		public function createPosition():int{
+			var condition:Boolean = true;
+			var band:int;
+			while (condition) {
+				band = Math.random()*1000 % GameConstant.RADIO;
+				if (band != ultPosi && Math.abs(band-ultPosi)>GameConstant.ENEMYRANG) {
+					ultPosi = band;
+					condition=false;
+				}
+			}
+			return band;
 		}
 		public function moveEnemy():void {
-			radio-=5;
 			for (var i:int = 0; i < arrE.length ; i++)
 			{
-				arrE[i].x = GameConstant.PATH.x+Point.polar(radio, arrPosition[i]*Math.PI/180).x;
-				arrE[i].y = GameConstant.PATH.y + Point.polar(radio, arrPosition[i] * Math.PI / 180).y;
+				if(arrE[i].active==true){
+					arrE[i].radio -= 5;
+					arrE[i].x = GameConstant.PATH.x+Point.polar(arrE[i].radio, arrE[i].position*Math.PI/180).x;
+					arrE[i].y = GameConstant.PATH.y + Point.polar(arrE[i].radio, arrE[i].position * Math.PI / 180).y;
+				}
 			}
 		}
 	}
