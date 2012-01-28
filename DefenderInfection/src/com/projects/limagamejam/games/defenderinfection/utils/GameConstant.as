@@ -15,6 +15,7 @@ package com.projects.limagamejam.games.defenderinfection.utils
 		public static const RADIO_HERO:int = 100;		
 		public static const PATH:Point = new Point(512, 383);
 		public static const ENEMYRANG:int = 30;
+		public static const NUMFRIENDS:int = 10;
 		public function GameConstant() 
 		{
 			

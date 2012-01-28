@@ -4,22 +4,19 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-	
 	/**
 	 * ...
-	 * @author emedinaa
+	 * @author ...
 	 */
-	public class IntructionMediator extends AbstractMediator 
+	public class DatosMediator extends AbstractMediator 
 	{
-		private var mview:InstructionView;
-		private var data:*;
-		
+		private var mview:DatosView;
+		private var data:*;		
 		private var context:ClientContext;
-		
-		public function IntructionMediator($view:Sprite,$data:*) 
+		public function DatosMediator($view:Sprite,$data:*) 
 		{
 			super($view);
-			mview = (InstructionView)($view);
+			mview = (DatosView)($view);
 			data = $data;
 			context = $data.context;
 			
@@ -33,17 +30,17 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		override public function events():void 
 		{
 			super.events();
-			mview.btnInstruction.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnGo.addEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
-			context.changeView("home", data) ;
+			context.changeView("game", data) ;
 		}
 		override public function destroy():void 
 		{
 			super.destroy();
-			mview.btnInstruction.removeEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnGo.removeEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 		
 	}

@@ -3,6 +3,8 @@ package com.projects.limagamejam.games.defenderinfection.view
 	import com.projects.core.iview.AbstractContext;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.core.iview.AbstractView;
+	import com.projects.limagamejam.games.defenderinfection.view.mediator.CreditsMediator;
+	import com.projects.limagamejam.games.defenderinfection.view.mediator.DatosMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.GameMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.HomeMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.IntructionMediator;
@@ -67,6 +69,11 @@ package com.projects.limagamejam.games.defenderinfection.view
 					return  new IntructionMediator(new InstructionView(), $data);
 				case "game":
 					return  new GameMediator(new GameView(), $data);
+				case "credits":
+					return  new  CreditsMediator(new CreditsView(), $data);
+				case "datos":
+					return new DatosMediator(new DatosView(), $data);
+	
 			}
 			return obj;
 		}

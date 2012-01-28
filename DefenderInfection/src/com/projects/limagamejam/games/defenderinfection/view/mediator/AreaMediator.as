@@ -14,10 +14,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		public function AreaMediator($view:Sprite) 
 		{
 			super($view);
-			mview = (AreaView)($view)
-			
+			mview = (AreaView)($view);			
 		}
 		
 	}
-
 }

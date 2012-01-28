@@ -7,22 +7,20 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	
 	/**
 	 * ...
-	 * @author emedinaa
+	 * @author ...
 	 */
-	public class IntructionMediator extends AbstractMediator 
+	public class CreditsMediator extends AbstractMediator 
 	{
-		private var mview:InstructionView;
+		private var mview:CreditsView;
 		private var data:*;
 		
 		private var context:ClientContext;
-		
-		public function IntructionMediator($view:Sprite,$data:*) 
+		public function CreditsMediator($view:Sprite,$data:*) 
 		{
 			super($view);
-			mview = (InstructionView)($view);
+			mview = (CreditsView)($view);
 			data = $data;
 			context = $data.context;
-			
 			initView();
 		}
 		override public function initView():void 
@@ -33,7 +31,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		override public function events():void 
 		{
 			super.events();
-			mview.btnInstruction.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnInicio.addEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 		
 		private function CLICK_handler(e:MouseEvent):void 
@@ -43,7 +41,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		override public function destroy():void 
 		{
 			super.destroy();
-			mview.btnInstruction.removeEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnInicio.removeEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 		
 	}

@@ -36,13 +36,25 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		override public function events():void 
 		{
 			super.events();
-			mview.btnHome.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnNew.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnInst.addEventListener(MouseEvent.CLICK, CLICK_instruc);
+			mview.btnCred.addEventListener(MouseEvent.CLICK, CLICK_creditos);
 		}
+		
+		private function CLICK_instruc(e:MouseEvent):void 
+		{
+			context.changeView("instruction", _data);
+		}
+		private function CLICK_creditos(e:MouseEvent):void 
+		{
+			context.changeView("credits", _data);
+		}
+		
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
 			trace("click ");
-			context.changeView("instruction", _data);
+			context.changeView("datos", _data);
 		}
 	}
 
