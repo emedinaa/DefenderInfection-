@@ -25,12 +25,22 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			
 			super.initView();
+			createMap();
+			createHero();
 			createEnemy();
 		}
 		public function createHero():void {
-			
+			hero = new HeroUI();
+			hero.x = GameConstant.PATH.x;
+			hero.y = GameConstant.PATH.y;
+			mview.addChild(hero);
 		}
 		public function createMap():void {
+			trace(mview.height / 2+ "  "+mview.width/2);
+			map = new MapUI();
+			map.x = GameConstant.PATH.x;
+			map.y = GameConstant.PATH.y;
+			mview.addChild(map);
 			
 		}
 		public function  createEnemy():void {

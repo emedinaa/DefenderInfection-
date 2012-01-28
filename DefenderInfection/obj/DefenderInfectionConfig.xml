@@ -25,6 +25,7 @@
     </source-path>
     <library-path append="true">
       <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\Library.swc</path-element>
+      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\greensock.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
