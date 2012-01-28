@@ -71,6 +71,16 @@ package com.projects.limagamejam.games.defenderinfection.view
 			return obj;
 		}
 		
+		public function get stage():Stage 
+		{
+			return _stage;
+		}
+		
+		public function set stage(value:Stage):void 
+		{
+			_stage = value;
+		}
+		
 		
 		
 	}

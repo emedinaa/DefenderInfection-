@@ -11,6 +11,8 @@ package com.projects.limagamejam.games.defenderinfection.utils
 		public static const NUMENEMY:int = 10;
 		public static const NOMBRE:String = "";
 		public static const PATH:Point = new Point(400, 360);
+		public static const RADIO_HERO:int = 50;
+		
 		public function GameConstant() 
 		{
 			

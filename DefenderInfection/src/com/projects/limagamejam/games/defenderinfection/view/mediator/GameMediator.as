@@ -1,6 +1,7 @@
 package com.projects.limagamejam.games.defenderinfection.view.mediator 
 {
 	import com.projects.core.iview.AbstractMediator;
+	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.geom.Point;
@@ -11,14 +12,19 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	public class GameMediator extends AbstractMediator
 	{
 		private var mview:GameView;
-		private var hero:HeroUI;
+		public var hero:HeroUI;
 		private var arrE:Vector.<EnemyUI>;
 		private var arrPosition:Array;
 		private var map:MapUI;
+		private var cmdHero:CmdMoveHero;
+		
+		private var _data:*
+		
 		public function GameMediator($view:Sprite, $data:*) 
 		{
 			super($view);
 			mview = GameView($view);
+			_data=$data
 			initView()
 		}
 		override public function initView():void 
@@ -26,6 +32,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			
 			super.initView();
 			createEnemy();
+			cmdHero = new CmdMoveHero(this, _data.context)
+			cmdHero.execute()
 		}
 		public function createHero():void {
 			
