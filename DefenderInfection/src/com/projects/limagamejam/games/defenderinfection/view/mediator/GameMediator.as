@@ -1,10 +1,13 @@
 package com.projects.limagamejam.games.defenderinfection.view.mediator 
 {
+	import air.update.utils.Constants;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	/**
 	 * ...
 	 * @author ...
@@ -17,8 +20,9 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var arrPosition:Array;
 		private var map:MapUI;
 		private var cmdHero:CmdMoveHero;
-		
-		private var _data:*
+		private var timer:Timer;
+		private var _data:*;
+		private var radio:int = GameConstant.RADIO;
 		
 		public function GameMediator($view:Sprite, $data:*) 
 		{
@@ -36,6 +40,21 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			createEnemy();
 			cmdHero = new CmdMoveHero(this, _data.context)
 			cmdHero.execute()
+			initMove();
+		}
+		
+		private function initMove():void 
+		{
+			timer = new Timer(500);
+			timer.addEventListener(TimerEvent.TIMER, TIMER_handler);
+			timer.start();
+		}
+		
+		private function TIMER_handler(e:TimerEvent):void 
+		{
+			moveEnemy();
+			e.updateAfterEvent();
+			
 		}
 		public function createHero():void {
 			hero = new HeroUI();
@@ -60,7 +79,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				aux.x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, arrPosition[i]*Math.PI/180).x;
 				aux.y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, arrPosition[i] * Math.PI / 180).y;
 				aux.rotation = arrPosition[i]-90;
-				arrE.push(aux);
+				arrE.push(aux);				
 				mview.addChild(aux);
 			}
 		}
@@ -76,6 +95,14 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					trace(band);
 					i++;
 				}
+			}
+		}
+		public function moveEnemy():void {
+			radio-=5;
+			for (var i:int = 0; i < arrE.length ; i++)
+			{
+				arrE[i].x = GameConstant.PATH.x+Point.polar(radio, arrPosition[i]*Math.PI/180).x;
+				arrE[i].y = GameConstant.PATH.y + Point.polar(radio, arrPosition[i] * Math.PI / 180).y;
 			}
 		}
 	}
