@@ -6,6 +6,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero2;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
+	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero2;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
@@ -28,6 +29,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var cmdHero:CmdMoveHero;
 		private var cmdHero2:CmdMoveHero2;
 		private var cmdShoot:CmdShootHero;
+		private var cmdShoot2:CmdShootHero2;
 		private var timer:Timer;
 		private var _data:*;
 		private var radio:int = GameConstant.RADIO;
@@ -142,6 +144,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			FriendsColocation();
 			cmdHero2 = new CmdMoveHero2(this, _data.context);
 			cmdHero2.execute();
+			cmdShoot2 =new CmdShootHero2(this, _data.context);
+			cmdShoot2.execute();
 		}
 		
 		private function FriendsColocation():void
