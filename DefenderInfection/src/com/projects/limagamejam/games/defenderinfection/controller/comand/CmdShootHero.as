@@ -50,6 +50,25 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 				arrBall[i].x=GameConstant.PATH.x+Point.polar(arrBall[i].radio,arrBall[i].rotation*Math.PI/180).x
 				arrBall[i].y=GameConstant.PATH.y+Point.polar(arrBall[i].radio,arrBall[i].rotation*Math.PI/180).y
 			}
+			
+			for (var j:int = 0; j < arrBall.length; j++) 
+			{
+					for (var k:int = 0; k < _view.arrE.length; k++) 
+					{
+						if (arrBall[j].hitTestObject(_view.arrE[k]))
+						{
+							if (_view.arrE[k].active == true)
+								_view.arrDead.push(_view.arrE[k].posi);
+							_view.arrE[k].active = false
+							_view.enenMap--
+							_view.mview.removeChild(arrBall[j]);
+							arrBall.splice(j,1)
+							//    list.splice(i,1);
+							return
+						}
+					}
+				
+			}
 			e.updateAfterEvent()
 		}
 		

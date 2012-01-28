@@ -17,7 +17,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	{
 		public var mview:GameView;
 		public var hero:HeroUI;
-		private var arrE:Vector.<EnemyUI>=new Vector.<EnemyUI>();
+		public var arrE:Vector.<EnemyUI>;
 		private var map:MapUI;
 		private var cmdHero:CmdMoveHero;
 		private var cmdShoot:CmdShootHero;
@@ -25,9 +25,9 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var _data:*;
 		private var radio:int = GameConstant.RADIO;
 		private var ultPosi:int = -1;//ultima posicion 
-		private var enenMap:int = 0 ;//enemigos en mapa
+		public var enenMap:int = 0 ;//enemigos en mapa
 		private var creationTime:int = 0;//tiempo de demora en creacion
-		
+		public var arrDead:Array = [];
 		public function GameMediator($view:Sprite, $data:*) 
 		{
 			super($view);
@@ -39,15 +39,18 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			
 			super.initView();
+			arrE = new Vector.<EnemyUI>();
+
+			
 			createMap();
 			createHero();
 			createEnemy();
+			
 			cmdHero = new CmdMoveHero(this, _data.context)
 			cmdShoot = new CmdShootHero(this, _data.context)
 			
 			cmdHero.execute()
 			initMove();
-			
 			cmdShoot.execute();
 		}
 		
@@ -62,11 +65,6 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			moveEnemy();
 			createEnemy();
-			if (arrE.length > 5 && GameConstant.FRECUENCYOUT-1==creationTime) {
-				var i:int = Math.random() * 1000 %( GameConstant.NUMENEMY-5);
-				arrE[i].active = false;
-				enenMap--;
-			}
 			e.updateAfterEvent();
 			
 		}
@@ -97,21 +95,17 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					aux.position = position;
 					aux.active = true;//para ver si esta muerto
 					aux.radio = GameConstant.RADIO;
-					arrE.push(aux);				
+					aux.posi = arrE.length;
+					arrE.push(aux);					
 					mview.addChild(aux);
 				}else {
-					for (var i:int = 0; i < arrE.length; i++) 
-					{
-						if (arrE[i].active == false) {
-							arrE[i].x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, position*Math.PI/180).x;
-							arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
-							arrE[i].rotation = position - 90;
-							arrE[i].position = position;
-							arrE[i].active = true;//para ver si esta muerto
-							arrE[i].radio = GameConstant.RADIO;
-							break;
-						}	
-					}
+					var i:int = arrDead.shift();
+					arrE[i].x = GameConstant.PATH.x+Point.polar(GameConstant.RADIO, position*Math.PI/180).x;
+					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
+					arrE[i].rotation = position - 90;
+					arrE[i].position = position;
+					arrE[i].active = true;//para ver si esta muerto
+					arrE[i].radio = GameConstant.RADIO;
 				}
 				
 				enenMap++;
@@ -151,5 +145,6 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				}
 			}
 		}
+		
 	}
 }
