@@ -40,11 +40,11 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			
 			var dx:int = auxMx;
 			var percent:Number = auxMx / 400;
-			var angle:Number = 360 * percent;
+			var angle:Number = 180 * percent;
 			
-			var pos:Point = Point.polar(GameConstant.RADIO_HERO, angle * Math.PI / 180)
-			_hero.x=pos.x
-			_hero.y=pos.y
+			var pos:Point = Point.polar(GameConstant.RADIO_HERO,- angle * Math.PI / 180+Math.PI/2)
+			_hero.x=GameConstant.PATH.x+pos.x
+			_hero.y=GameConstant.PATH.y+pos.y
 			
 			trace("dx ",angle)
 		}
