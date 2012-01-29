@@ -54,7 +54,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var context:ClientContext
 		
 		private var model:GameModel
-		
+		public var contTime:int = GameConstant.TIMEPLAY;
+	
 		public function GameMediator($view:Sprite, $data:*)
 		{
 			super($view);
@@ -94,17 +95,17 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function TIMER_handler(e:TimerEvent):void
 		{
+			
+			if (contTime == 0) {
+					destroyEvents();
+					model.dispatchEvent(new Event(GameModel.GAMEOVER_WIN))
+					trace("WINNN")
+			}
+			trace(contTime);
 			if (numF <= 0)
 			{
 				trace("END ....EJECUTA DESTROY ");
-				timer.stop()
-				timer.removeEventListener(TimerEvent.TIMER, TIMER_handler);
-				
-				if (cmdHero)cmdHero.unexecute()
-				if(cmdHero2)cmdHero2.unexecute()
-				if(cmdShoot)cmdShoot.unexecute()
-				if (cmdShoot2) cmdShoot2.unexecute()
-				
+				destroyEvents();
 				model.dispatchEvent(new Event(GameModel.GAMEOVER_LOSE))
 				
 				return
@@ -112,6 +113,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			if (enableMoveEn)
 			{
 				
+				contTime--;	
 				moveEnemy()
 				createEnemy();
 				validateCollition()
@@ -122,6 +124,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					checkColisionM2();
 					moveEnemyD();
 					moveFriendD();
+					contTime--;
 					if (hero2.active == false) {
 						friendSelected = false;
 						cmdHero2.unexecute();
@@ -136,6 +139,17 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				
 			}
 			e.updateAfterEvent();
+		}
+		
+		private function destroyEvents():void 
+		{
+			timer.stop()
+			timer.removeEventListener(TimerEvent.TIMER, TIMER_handler);	
+			if (cmdHero)cmdHero.unexecute()
+			if(cmdHero2)cmdHero2.unexecute()
+			if(cmdShoot)cmdShoot.unexecute()
+			if (cmdShoot2) cmdShoot2.unexecute()
+			
 		}
 		
 		private function checkColisionM2():void 
@@ -350,6 +364,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
 					//arrE[i].rotation = position - 90;
 					arrE[i].position = position;
+					arrE[i].visible = true;
 					arrE[i].active = true; //para ver si esta muerto
 					arrE[i].radio = GameConstant.RADIO;
 				}
@@ -414,6 +429,18 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdShoot2.unexecute();
 			cmdHero.execute()
 			cmdShoot.execute();
+			limpiarEnemigos();
+		}
+		public function limpiarEnemigos():void {
+			for (var i:int = 0; i < arrE.length; i++) 
+			{
+
+					mview.removeChild(arrE[i]);
+					//arrE[i].visible = false;
+				
+			}
+			arrE = new Vector.<EnemyUI>();
+			arrDead=[];
 		}
 		override public function destroy():void 
 		{

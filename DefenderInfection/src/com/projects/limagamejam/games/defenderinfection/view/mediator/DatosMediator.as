@@ -31,6 +31,13 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			super.events();
 			mview.btnGo.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnBack.addEventListener(MouseEvent.CLICK, CLICK_back);
+		}
+		
+		private function CLICK_back(e:MouseEvent):void 
+		{
+			context.changeView("home", data) ;
+			destroy();
 		}
 		
 		private function CLICK_handler(e:MouseEvent):void 
