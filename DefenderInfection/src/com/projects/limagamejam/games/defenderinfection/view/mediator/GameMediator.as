@@ -321,7 +321,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				{
 					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
 					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
-					var i:int = arrDead.shift();
+					//var i:int = arrDead.shift();
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
 					//arrE[i].rotation = position - 90;
