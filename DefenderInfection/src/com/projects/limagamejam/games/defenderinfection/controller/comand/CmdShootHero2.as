@@ -23,7 +23,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private var _hero:FriendUI
 		
 		private var _t:Timer;
-		private var arrBall:Vector.<Ball>
+		private var arrBall:Vector.<VaccineUI>
 		
 		public function CmdShootHero2($view:GameMediator,$context:ClientContext) 
 		{
@@ -36,7 +36,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		public function execute():void 
 		{
-			arrBall = new Vector.<Ball>();
+			arrBall = new Vector.<VaccineUI>();
 			_context.stage.addEventListener(MouseEvent.CLICK, CLICK_handler);
 			_t = new Timer(100, 0);
 			_t.addEventListener(TimerEvent.TIMER,TIMER_handler)
@@ -78,12 +78,12 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		private function createBall():void 
 		{
-			var ball:Ball = new Ball();
+			var ball:VaccineUI = new VaccineUI();
 			ball.x = _hero.x;
 			ball.y = _hero.y;
 			//ball.rotation = 90 - _hero.angle
 			//ball.radio= 100
-			arrBall.push(Ball(_view.mview.addChild(ball)))
+			arrBall.push(VaccineUI(_view.mview.addChild(ball)))
 			
 		}
 		public function unexecute():void 
