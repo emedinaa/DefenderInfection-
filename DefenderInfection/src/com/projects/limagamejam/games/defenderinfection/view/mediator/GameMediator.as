@@ -295,15 +295,26 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			cmdHero.unexecute()
 			cmdShoot.unexecute()
+			healing.visible=false
 			for (var i:int = 0; i < arrE.length; i++) 
 			{
 				arrE[i].visible=false
 			}
-			mutation.alpha=0
-			TweenLite.to(mutation, 1, { alpha:1, onComplete:completeMutation })
+			//mutation.alpha = 0
+			mutation.gotoAndStop(1)
+			
+			//TweenLite.to(mutation, 1, { alpha:0.5, onComplete:completeMutation })
 			mutation.visible = true
+			completeMutation()
 			//mutation.gotoAndPlay(1)
 			//view.addChild(_tui)
+		}
+		private function completeMutation():void 
+		{
+			mutation.gotoAndPlay(1)
+			delay = new DelayTimer(showArea, 2000);
+			
+			//showArea()
 		}
 		
 		public function hideTransition():void
@@ -316,10 +327,11 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdHero2.unexecute();
 			cmdShoot2.unexecute();
 			
-			
-			healing.alpha=0
-			TweenLite.to(healing, 0.8, { alpha:1, onComplete:completeHealing })
+			healing.gotoAndStop(1)
+			//healing.alpha=0
+			//TweenLite.to(healing, 0.8, { alpha:1, onComplete:completeHealing })
 			healing.visible = true
+			completeHealing()
 		}
 		
 		private function completeHealing():void 
@@ -340,13 +352,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			swapMap()
 		}
 		
-		private function completeMutation():void 
-		{
-			mutation.gotoAndPlay(1)
-			delay = new DelayTimer(showArea, 2000);
-			
-			//showArea()
-		}
+
 		
 		/**
 		 * Muestra el segundo MAPA ...

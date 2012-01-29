@@ -94,7 +94,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			var ball:VaccineUI = new VaccineUI();
 			ball.x = _hero.x;
 			ball.y = _hero.y;
-			vx=MathUtils.randomMinMax(8,12)
+			vx=MathUtils.randomMinMax(10,15)
 			vy=MathUtils.randomMinMax(8,12)
 			ball.vy = vy;
 			ball.vx = vx;
