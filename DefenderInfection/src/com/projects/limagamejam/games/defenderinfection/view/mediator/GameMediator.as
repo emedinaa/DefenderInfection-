@@ -101,13 +101,13 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					checkColisionM2();
 					moveEnemyD();
 					moveFriendD();
-					if (hero2.visible == false) {
+					if (hero2.active == false) {
 						friendSelected = false;
 						cmdHero2.unexecute();
 						cmdShoot2.unexecute();
 						for (var i:int = 0; i < arrF.length; i++) 
 						{
-							if (arrF[i].visible == true)
+							if (arrF[i].active == true)
 								arrF[i].addEventListener(MouseEvent.CLICK , CLICK_escoger);
 						}
 					}
@@ -122,13 +122,14 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
 				
-				if (enemyMap2.hitTestObject(arrF[i])&&arrF[i].visible==true) {
-					arrF[i].visible=false;
+				if (enemyMap2.hitTestObject(arrF[i])&&arrF[i].active==true) {
+					
 					if (enemyMap2.hitTestObject(arrF[i])) {
 						var aux:FriendUI = arrF[i];
 						aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
-						arrF.slice(i, 1);
-						_area.removeChild(aux);
+						//arrF.slice(i, 1);
+						//_area.removeChild(aux);
+						arrF[i].active=false;
 						numF--;
 						break;
 					}
@@ -161,7 +162,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				var select:int;
 				for (var i:int = 0; i < arrF.length; i++) 
 				{
-					if (arrF[i].visible == true)
+					if (arrF[i].active == true)
 						select = i;
 				}
 				var rad:int = 0;
@@ -247,6 +248,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				aux1.x = alex;
 				aux1.y = aley;
 				aux1.posi = i;
+				aux1.active = true;
 				aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
 				arrF.push(aux1);
 				_area.addChild(aux1);
@@ -321,7 +323,6 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				{
 					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
 					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
-					var i:int = arrDead.shift();
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
 					//arrE[i].rotation = position - 90;
