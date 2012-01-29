@@ -20,16 +20,16 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\src</path-element>
-      <path-element>C:\as3proyect\FD\Library\AS3\classes</path-element>
+      <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\src</path-element>
+      <path-element>D:\DEV\FD\FD4\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\greensock.swc</path-element>
-      <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\lib\Library.swc</path-element>
+      <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\lib\greensock.swc</path-element>
+      <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\lib\Library.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\src\com\projects\limagamejam\games\defenderinfection\Client.as</path-element>
+    <path-element>D:\TRABAJO\LIMA_GAME_JAM\270112\code\DefenderInfection\src\com\projects\limagamejam\games\defenderinfection\Client.as</path-element>
   </file-specs>
   <default-background-color>#101010</default-background-color>
   <default-frame-rate>30</default-frame-rate>

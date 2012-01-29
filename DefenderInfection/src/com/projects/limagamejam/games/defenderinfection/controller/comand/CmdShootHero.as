@@ -60,11 +60,12 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 					{
 						if (arrBall[j].hitTestObject(_view.arrE[k]))
 						{
-							if (_view.arrE[k].active == true)
+							if (_view.arrE[k].active == true){
 								_view.arrDead.push(_view.arrE[k].posi);
-							_view.arrE[k]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD)	
-							_view.arrE[k].active = false
-							_view.enenMap--
+								_view.arrE[k]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD)	
+								_view.arrE[k].active = false
+								_view.enenMap--
+							}
 							_view.mview.removeChild(arrBall[j]);
 							arrBall.splice(j,1)
 							//    list.splice(i,1);
@@ -85,10 +86,12 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private function createBall():void 
 		{
 			//var ball:Ball = new Ball();
+			var ang:Number = 90 - _hero.angle;
+			
 			var ball:BulletUI=new BulletUI()
-			ball.x = _hero.x;
-			ball.y = _hero.y;
-			ball.rotation = 90 - _hero.angle
+			ball.x = _hero.x+Point.polar(25,ang*Math.PI/180).x
+			ball.y = _hero.y+Point.polar(25,ang*Math.PI/180).y;
+			ball.rotation = ang
 			ball.radio = 100
 			ball.alpha = 0;
 			TweenLite.to(ball,0.5,{alpha:1})
