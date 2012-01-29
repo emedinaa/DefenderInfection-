@@ -43,6 +43,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		public var numF:int = GameConstant.NUMFRIENDS;
 		public var hero2:FriendUI;
 		public var enemyMap2:EnemyMap2;
+		public var enemyMira:int;
+		public var friendSelected:Boolean=false;
 		
 		private var enableMoveEn:Boolean = true;
 		private var enableMoveDe:Boolean = false;
@@ -89,16 +91,26 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			if (enableMoveEn)
 			{
 				
-					moveEnemy()
+				moveEnemy()
 				createEnemy();
 				validateCollition()
 			}
 			if (enableMoveDe)
 			{
-				if(hero2!=null){
+				if(hero2!=null&& friendSelected==true){
+					checkColisionM2();
 					moveEnemyD();
 					moveFriendD();
-					checkColisionM2();
+					if (hero2.visible == false) {
+						friendSelected = false;
+						cmdHero2.unexecute();
+						cmdShoot2.unexecute();
+						for (var i:int = 0; i < arrF.length; i++) 
+						{
+							if (arrF[i].visible == true)
+								arrF[i].addEventListener(MouseEvent.CLICK , CLICK_escoger);
+						}
+					}
 				}
 				
 			}
@@ -109,13 +121,17 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
-				if (enemyMap2.hitTestObject(arrF[i])) {
-					var aux:FriendUI = arrF[i];
-					aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
-					arrF.slice(i, 1);
-					_area.removeChild(aux);
-					numF--;
-					break;
+				
+				if (enemyMap2.hitTestObject(arrF[i])&&arrF[i].visible==true) {
+					arrF[i].visible=false;
+					if (enemyMap2.hitTestObject(arrF[i])) {
+						var aux:FriendUI = arrF[i];
+						aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
+						arrF.slice(i, 1);
+						_area.removeChild(aux);
+						numF--;
+						break;
+					}
 				}
 			}
 			
@@ -141,16 +157,22 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private function moveEnemyD():void 
 		{
 			trace(arrF.length)
-			var select:int = Math.random()*1000 % arrF.length;
-			var rad:int = 0;
-			if(enemyMap2.x<arrF[select].x)
-				rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI ;
-			else
-				rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI+180 ;
-			var radioM:int = 5 ;
-			enemyMap2.x = enemyMap2.x + Point.polar(radioM, rad * Math.PI / 180).x;
-			enemyMap2.y = enemyMap2.y + Point.polar(radioM, rad * Math.PI / 180).y;
-			
+			if (arrF.length > 0) {
+				var select:int;
+				for (var i:int = 0; i < arrF.length; i++) 
+				{
+					if (arrF[i].visible == true)
+						select = i;
+				}
+				var rad:int = 0;
+				if(enemyMap2.x<arrF[select].x)
+					rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI ;
+				else
+					rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI+180 ;
+				var radioM:int = 5 ;
+				enemyMap2.x = enemyMap2.x + Point.polar(radioM, rad * Math.PI / 180).x;
+				enemyMap2.y = enemyMap2.y + Point.polar(radioM, rad * Math.PI / 180).y;
+			}
 		}
 		
 		private function validateCollition():void
@@ -249,6 +271,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdHero2.execute();
 			cmdShoot2 =new CmdShootHero2(this, _data.context);
 			cmdShoot2.execute();
+			friendSelected = true;
 			trace("me escogiste:");
 		}
 		
@@ -296,6 +319,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				}
 				else
 				{
+					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
 					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
 					var i:int = arrDead.shift();
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
@@ -367,5 +391,6 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdHero.execute()
 			cmdShoot.execute();
 		}
+		
 	}
 }
