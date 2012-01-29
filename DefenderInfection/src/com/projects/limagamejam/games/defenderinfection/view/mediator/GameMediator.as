@@ -394,7 +394,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			{
 				if (arrE[i].active == true)
 				{
-					arrE[i].radio -= 5;
+					arrE[i].radio -= CharacterConstant.ENEMY_VELOCITY;
 					arrE[i].x = GameConstant.PATH.x + Point.polar(arrE[i].radio, arrE[i].position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(arrE[i].radio, arrE[i].position * Math.PI / 180).y;
 				}
