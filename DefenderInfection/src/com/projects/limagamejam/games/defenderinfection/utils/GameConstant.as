@@ -16,7 +16,7 @@ package com.projects.limagamejam.games.defenderinfection.utils
 		public static const PATH:Point = new Point(512, 383);
 		public static const ENEMYRANG:int = 30;
 		public static const NUMFRIENDS:int = 10;
-		public static const TIMEPLAY:int = 3000;
+		public static const TIMEPLAY:int = 3000;//3000
 		public function GameConstant() 
 		{
 			

@@ -54,6 +54,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 			
 			_stage.addEventListener(Event.RESIZE, RESIZE_handler);
 			changeView("home", { context:this, model:_gameModel,msnd:_managerSnd } )
+			//changeView("win", { context:this, model:_gameModel,msnd:_managerSnd } )
 			
 		}
 		

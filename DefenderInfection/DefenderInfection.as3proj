@@ -52,6 +52,7 @@
   <libraryPaths>
     <element path="lib\greensock.swc" />
     <element path="lib\Library.swc" />
+    <element path="lib\FacebookGraphAPIDesktop.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
