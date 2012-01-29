@@ -53,7 +53,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 			_gameModel.addEventListener(GameModel.GAMEOVER_LOSE, GAMEOVER_LOSE_handler);
 			
 			_stage.addEventListener(Event.RESIZE, RESIZE_handler);
-			changeView("home", { context:this, model:_gameModel } )
+			changeView("home", { context:this, model:_gameModel,msnd:_managerSnd } )
 			
 		}
 		
@@ -61,6 +61,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 		{
 			_managerSnd = SoundManager.getInstance()
 			_managerSnd.addExternalSound("media/InfectedDefender.mp3","snd1")
+			
 			_managerSnd.playSound("snd1",1,0,800,false)
 			
 		}
@@ -79,7 +80,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 		{
 			trace("LOSE ...")
 			
-			changeView("lose",{ context:this,model:_gameModel })
+			changeView("lose",{ context:this,model:_gameModel,msnd:_managerSnd })
 		}
 		
 		private function GAMEOVER_WIN_handler(e:Event):void 

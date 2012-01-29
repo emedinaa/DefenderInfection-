@@ -62,7 +62,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 						arrBall.splice(0, 1)
 					}
 					//    list.splice(i,1);
-					_view.swapMap();
+					//_view.swapMap();
+					_view.hideTransition()
 					return
 				}
 				
