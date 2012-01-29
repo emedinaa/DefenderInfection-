@@ -9,6 +9,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero2;
 	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
+	import com.projects.limagamejam.games.defenderinfection.view.mediator.characters.FriendActions;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.events.Event;
@@ -236,6 +237,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					var xx:int = ax[i];
 					var yy:int = ay[j];
 					var aux1:FriendUI = new FriendUI();
+					FriendActions.activeNormal(aux1);
 					aux1.x = xx;
 					aux1.y = yy;
 					aux1.posi = aux-1;
@@ -245,17 +247,16 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					_area.addChild(aux1);
 					aux++;
 				}
-			}
-			//hero2 = new FriendUI();
-			//hero2.x = 250;
-			//hero2.y = 250;
-		 //	_area.addChild(hero2);
+			}	
+
 		}
 		
 		
 		private function CLICK_escoger(e:MouseEvent):void
 		{
 			hero2 = FriendUI(e.currentTarget);
+			FriendActions.activeWarrior(hero2)
+			
 			hero2.x = hero2.x + 50;
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
@@ -315,6 +316,9 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				{
 					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
 					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
+
+					//var i:int = arrDead.shift();
+
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
 					//arrE[i].rotation = position - 90;
