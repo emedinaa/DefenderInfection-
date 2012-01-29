@@ -5,7 +5,8 @@
 :: http://livedocs.adobe.com/flex/3/html/help.html?content=CommandLineTools_5.html#1035959
 
 :: Path to Flex SDK binaries
-set PATH=%PATH%;$(FlexSDK)\bin
+::set PATH=%PATH%;$(FlexSDK)\bin
+set PATH=%PATH%;"D:\DEV\SDK\FLEX\4.5.1.8\flex_sdk_4.5.0.18623\bin"
 
 :: Signature (see 'CreateCertificate.bat')
 set CERTIFICATE="DefenderInfection.pfx"
@@ -14,7 +15,7 @@ if not exist %CERTIFICATE% goto certificate
 
 :: Output
 if not exist air md air
-set AIR_FILE=air/DefenderInfection.air
+set AIR_FILE=air/InfectionDefender.air
 
 :: Input
 set APP_XML=application.xml 

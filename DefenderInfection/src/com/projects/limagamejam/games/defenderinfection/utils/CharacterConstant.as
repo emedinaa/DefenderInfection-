@@ -15,6 +15,8 @@ package com.projects.limagamejam.games.defenderinfection.utils
 		public static const FRIEND_INIT:String = "INIT"
 		public static const FRIEND_DEAD:String = "DEAD"
 		
+		public static const ENEMY_VELOCITY:int = 2 //5
+		
 		
 		
 		public function CharacterConstant() 

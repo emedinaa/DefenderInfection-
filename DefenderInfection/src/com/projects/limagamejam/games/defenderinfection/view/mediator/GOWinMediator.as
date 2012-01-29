@@ -31,17 +31,19 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		override public function events():void 
 		{
 			super.events();
-			//mview.btnGo.addEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnRetry.addEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
+			destroy();
 			context.changeView("home", data) ;
+			
 		}
 		override public function destroy():void 
 		{
 			super.destroy();
-			//mview.btnInicio.removeEventListener(MouseEvent.CLICK, CLICK_handler);
+			mview.btnRetry.removeEventListener(MouseEvent.CLICK, CLICK_handler);
 		}
 	}
 

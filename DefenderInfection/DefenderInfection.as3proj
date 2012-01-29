@@ -4,14 +4,14 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\DefenderInfection.swf" />
+    <movie path="bin\InfectionDefender.swf" />
     <movie fps="30" />
     <movie width="1024" />
     <movie height="768" />
     <movie version="2" />
     <movie minorVersion="0" />
     <movie platform="AIR" />
-    <movie background="#FFFFFF" />
+    <movie background="#101010" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>

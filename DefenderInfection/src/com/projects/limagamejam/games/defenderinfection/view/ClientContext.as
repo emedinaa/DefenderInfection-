@@ -33,7 +33,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 			super($view)
 			_stage = $stage;
 			_stage.align = StageAlign.TOP_LEFT;
-			_stage.displayState = StageDisplayState.NORMAL;
+			_stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			
 			initView();
 		}
@@ -48,8 +48,19 @@ package com.projects.limagamejam.games.defenderinfection.view
 			_gameModel.addEventListener(GameModel.GAMEOVER_WIN, GAMEOVER_WIN_handler);
 			_gameModel.addEventListener(GameModel.GAMEOVER_LOSE, GAMEOVER_LOSE_handler);
 			
-			changeView("home", { context:this,model:_gameModel } );
+			_stage.addEventListener(Event.RESIZE, RESIZE_handler);
+			changeView("home", { context:this, model:_gameModel } )
 			
+		}
+		
+		private function RESIZE_handler(e:Event):void 
+		{
+			if (_currentMed)
+			{
+				_currentMed.view.x = _stage.stageWidth / 2 - 512
+				_currentMed.view.y = _stage.stageHeight / 2 - 384
+				
+			}
 		}
 		
 		private function GAMEOVER_LOSE_handler(e:Event):void 
@@ -71,11 +82,13 @@ package com.projects.limagamejam.games.defenderinfection.view
 			{ 
 				_currentMed.destroy()
 				if (content.numChildren>0){content.removeChild(_currentMed.view)}
-				trace("0");
+				//trace("0");
 			}
 			//trace("1");
 			_currentMed = factoryView($name, $data);
 			content.addChild(_currentMed.view);
+			
+			_stage.dispatchEvent(new Event(Event.RESIZE))
 			//trace("2");
 		}
 		

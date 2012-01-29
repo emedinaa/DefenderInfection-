@@ -31,7 +31,7 @@
   <file-specs>
     <path-element>C:\as3proyect\code\DefenderInfection-\DefenderInfection\src\com\projects\limagamejam\games\defenderinfection\Client.as</path-element>
   </file-specs>
-  <default-background-color>#FFFFFF</default-background-color>
+  <default-background-color>#101010</default-background-color>
   <default-frame-rate>30</default-frame-rate>
   <default-size>
     <width>1024</width>

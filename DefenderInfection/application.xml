@@ -1,27 +1,22 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/2.0">
-	
-	<id>DefenderInfection</id> 
-	<version>1.0</version> 
-	<filename>DefenderInfection</filename> 
-	
-	<name>DefenderInfection</name> 
-	<description></description> 
-	<copyright></copyright> 
-	
-	<initialWindow> 
-		<title>DefenderInfection</title> 
-		<content>DefenderInfection.swf</content> 
-		<systemChrome>standard</systemChrome> 
-		<transparent>false</transparent> 
-		<visible>true</visible> 
-		<minimizable>true</minimizable> 
-		<maximizable>true</maximizable> 
-		<resizable>true</resizable> 
-	</initialWindow> 
-	
-	<!-- 
+  <id>InfectionDefender</id>
+  <version>1.0</version>
+  <filename>InfectionDefender</filename>
+  <name>InfectionDefender</name>
+  <initialWindow>
+    <title>InfectionDefender</title>
+    <content>InfectionDefender.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <minimizable>true</minimizable>
+    <maximizable>true</maximizable>
+    <resizable>true</resizable>
+  </initialWindow>
+  <!-- 
 	More options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
 	-->
+  <supportedProfiles>desktop</supportedProfiles>
 </application>
