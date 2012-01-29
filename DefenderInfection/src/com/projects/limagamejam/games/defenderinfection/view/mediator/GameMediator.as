@@ -109,10 +109,10 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
 				if (enemyMap2.hitTestObject(arrF[i])) {
-					
+					var aux:FriendUI = arrF[i];
 					arrF.slice(i, 1);
-					_area.removeChild(arrF[i])
-					numF--
+					_area.removeChild(aux);
+					numF--;
 					break;
 				}
 			}
@@ -138,6 +138,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function moveEnemyD():void 
 		{
+			trace(arrF.length)
 			var select:int = Math.random()*1000 % arrF.length;
 			var rad:int = 0;
 			if(enemyMap2.x<arrF[select].x)

@@ -86,24 +86,6 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			arrBall.push(Ball(_view.mview.addChild(ball)))
 			
 		}
-		
-		/*private function MOUSE_MOVE_handler(e:MouseEvent):void 
-		{
-			var auxMx:int = _context.stage.mouseX-GameConstant.PATH.x;
-			if (auxMx > 0) { if (auxMx > 400) { auxMx = 400 }}
-			if (auxMx < 0) { if (auxMx < -400) { auxMx = -400 }}
-			
-			var dx:int = auxMx;
-			var percent:Number = auxMx / 400;
-			var angle:Number = 180 * percent;
-			
-			var pos:Point = Point.polar(GameConstant.RADIO_HERO,- angle * Math.PI / 180+Math.PI/2)
-			_hero.x=GameConstant.PATH.x+pos.x
-			_hero.y=GameConstant.PATH.y+pos.y
-			
-			trace("dx ",angle)
-		}*/
-		
 		public function unexecute():void 
 		{
 			_context.stage.removeEventListener(MouseEvent.CLICK, CLICK_handler);
