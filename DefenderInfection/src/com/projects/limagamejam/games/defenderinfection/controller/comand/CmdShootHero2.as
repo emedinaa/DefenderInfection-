@@ -23,7 +23,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private var _view:GameMediator;
 		private var _context:ClientContext;
 		private var _hero:FriendUI
-		
+		private var creation:Boolean = false;
 		private var _t:Timer;
 		private var arrBall:Vector.<VaccineUI>
 		private var vy:Number=10;
@@ -68,6 +68,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 				{
 					_view.mview.removeChild(arrBall[j]);
 					arrBall.splice(j, 1)
+					
 					while(arrBall.length>0) 
 					{
 						_view.mview.removeChild(arrBall[0]);
@@ -86,28 +87,46 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
-			createBall();
+		
+				createBall();
 		}
 		
 		private function createBall():void 
 		{
-			var ball:VaccineUI = new VaccineUI();
-			ball.x = _hero.x;
-			ball.y = _hero.y;
-			vx=MathUtils.randomMinMax(10,15)
-			vy=MathUtils.randomMinMax(8,12)
-			ball.vy = vy;
-			ball.vx = vx;
-			ball.tempx=ball.x
-			ball.tempy=ball.y
+			if (creation == true)
+			{
+				var ball:VaccineUI = new VaccineUI();
+				ball.x = _hero.x;
+				ball.y = _hero.y;
+				vx=MathUtils.randomMinMax(10,15)
+				vy=MathUtils.randomMinMax(8,12)
+				ball.vy = vy;
+				ball.vx = vx;
+				ball.tempx=ball.x
+				ball.tempy = ball.y
+				arrBall.push(VaccineUI(_view.mview.addChild(ball)))
+			}
+
+			/*if(creation==true){
+				var ball:VaccineUI = new VaccineUI();
+				ball.x = _hero.x;
+				ball.y = _hero.y;
+				ball.vy = vy;
+				ball.tempx=ball.x
+				ball.tempy=ball.y
+
 			//ball.rotation = 90 - _hero.angle
 			//ball.radio= 100
-			arrBall.push(VaccineUI(_view.mview.addChild(ball)))
+				arrBall.push(VaccineUI(_view.mview.addChild(ball)))
+				
+			}*/
+			creation = true;
 			
 		}
 		public function unexecute():void 
 		{
 			_context.stage.removeEventListener(MouseEvent.CLICK, CLICK_handler);
+			creation = false;
 		}
 		
 	}

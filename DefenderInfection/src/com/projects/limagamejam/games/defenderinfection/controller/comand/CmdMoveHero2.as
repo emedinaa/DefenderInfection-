@@ -40,16 +40,16 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		{
 			switch(e.keyCode) {
 				case Keyboard.UP:
-					_hero.y -= 3;
+					_hero.y -= 4;
 					break;
 				case Keyboard.DOWN:
-					_hero.y += 3;
+					_hero.y += 4;
 					break;
 				case Keyboard.LEFT:
-					_hero.x -= 3;
+					_hero.x -= 4;
 					break;
 				case Keyboard.RIGHT:
-					_hero.x += 3;
+					_hero.x += 4;
 					break;
 			}			
 		}
