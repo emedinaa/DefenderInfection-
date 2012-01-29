@@ -46,7 +46,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			_hero.x=GameConstant.PATH.x+pos.x
 			_hero.y = GameConstant.PATH.y + pos.y
 			_hero.angle=angle
-			//_hero.rotation =180 + angle;
+			_hero.rotation = -angle;
 			trace("dx ",angle)
 		}
 		

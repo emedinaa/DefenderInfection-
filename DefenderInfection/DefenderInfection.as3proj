@@ -50,8 +50,8 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="lib\Library.swc" />
     <element path="lib\greensock.swc" />
+    <element path="lib\Library.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

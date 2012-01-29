@@ -2,6 +2,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 {
 	import com.projects.core.icommand.ICommand;
 	import com.projects.core.iview.AbstractMediator;
+	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.GameMediator;
@@ -60,6 +61,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 						{
 							if (_view.arrE[k].active == true)
 								_view.arrDead.push(_view.arrE[k].posi);
+							_view.arrE[k]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD)	
 							_view.arrE[k].active = false
 							_view.enenMap--
 							_view.mview.removeChild(arrBall[j]);
@@ -75,6 +77,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		private function CLICK_handler(e:MouseEvent):void 
 		{
+			_hero['mc'].gotoAndPlay(CharacterConstant.HERO_SHOOT);
 			createBall();
 		}
 		
