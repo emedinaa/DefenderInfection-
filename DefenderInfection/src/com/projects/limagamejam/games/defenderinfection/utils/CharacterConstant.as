@@ -15,6 +15,9 @@ package com.projects.limagamejam.games.defenderinfection.utils
 		public static const FRIEND_INIT:String = "INIT"
 		public static const FRIEND_DEAD:String = "DEAD"
 		
+		public static const FRIEND_WARRIOR_INIT:String = "INIT"
+		public static const FRIEND_WARRIOR_LAUNCH:String = "LAUNCH"
+		
 		public static const ENEMY_VELOCITY:int = 2 //5
 		
 		

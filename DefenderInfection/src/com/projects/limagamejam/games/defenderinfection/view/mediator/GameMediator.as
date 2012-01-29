@@ -13,6 +13,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.characters.FriendActions;
 	import com.reintroducing.sound.SoundManager;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.events.Event;
@@ -63,9 +64,11 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private var mutation:Mutacion
 		private var healing:Curacion
+		private var mcLives:Personas
 		
 		private var delay:DelayTimer;
 		public var mSound:SoundManager;
+		public var arrLives:Array;
 	
 		public function GameMediator($view:Sprite, $data:*)
 		{
@@ -98,6 +101,22 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdShoot.execute();
 			createTimer();
 			createTransition()
+			//vidas ------------------
+			mcLives = new Personas()
+			arrLives=[mcLives['v1'],
+							mcLives['v2'],
+							mcLives['v3'],
+							mcLives['v4'],
+							mcLives['v5'],
+							mcLives['v6'],
+							mcLives['v7'],
+							mcLives['v8'],
+							mcLives['v9'],
+							mcLives['v10'] ]
+							
+			view.addChild(mcLives)
+			mcLives.x = _tui.x + 800;
+			mcLives.y= _tui.y;
 		}
 		
 		private function createTransition():void 
@@ -159,6 +178,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				
 				return
 			}
+			if(numF<arrLives.length){arrLives[numF].gotoAndPlay(5)}
 			if (enableMoveEn)
 			{
 				
@@ -211,7 +231,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				
 				if (enemyMap2.hitTestObject(arrF[i])&&arrF[i].active==true) {
 					
-					if (enemyMap2.hitTestObject(arrF[i])) {
+					if (enemyMap2['hit'].hitTestObject(arrF[i])) {
 						var aux:FriendUI = arrF[i];
 						FriendActions.deadWarrior(aux);
 						//aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
@@ -402,6 +422,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					aux1.y = yy;
 					aux1.posi = aux-1;
 					aux1.active = true;
+					aux1.mouseChildren=false
+					aux1.buttonMode = true;
 					aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
 					arrF.push(aux1);
 					_area.addChild(aux1);

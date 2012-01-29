@@ -1,8 +1,10 @@
 package com.projects.limagamejam.games.defenderinfection.controller.comand 
 
 {
+	import com.greensock.TweenLite;
 	import com.projects.core.icommand.ICommand;
 	import com.projects.core.iview.AbstractMediator;
+	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import com.projects.limagamejam.games.defenderinfection.utils.MathUtils;
 	import com.projects.limagamejam.games.defenderinfection.utils.Utils;
@@ -64,7 +66,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			for (var j:int = 0; j < arrBall.length; j++) 
 			{
 						
-				if (arrBall[j].hitTestObject(_view.enemyMap2))
+				if (arrBall[j].hitTestObject(_view.enemyMap2['hit']))
 				{
 					_view.mview.removeChild(arrBall[j]);
 					arrBall.splice(j, 1)
@@ -96,8 +98,9 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			if (creation == true)
 			{
 				var ball:VaccineUI = new VaccineUI();
+				_hero['mc1'].gotoAndPlay( CharacterConstant.FRIEND_WARRIOR_LAUNCH)
 				ball.x = _hero.x;
-				ball.y = _hero.y;
+				ball.y = _hero.y-10;
 				vx=MathUtils.randomMinMax(10,15)
 				vy=MathUtils.randomMinMax(8,12)
 				ball.vy = vy;
@@ -105,6 +108,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 				ball.tempx=ball.x
 				ball.tempy = ball.y
 				arrBall.push(VaccineUI(_view.mview.addChild(ball)))
+				ball.alpha = 0
+				TweenLite.to(ball,0.5,{alpha:1})
 			}
 
 			/*if(creation==true){
