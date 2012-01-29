@@ -10,9 +10,11 @@ package com.projects.limagamejam.games.defenderinfection.model
 	public class GameModel extends EventDispatcher 
 	{
 		
-		public const PAUSE:String = "pause"
-		public const GAMEOVER:String = "gameover";
-		public const INIT:String = "gameover";
+		public static const PAUSE:String = "pause"
+		//public static const GAMEOVER:String = "gameover";
+		public static const GAMEOVER_WIN:String = "gameoverwin";
+		public static const GAMEOVER_LOSE:String = "gameoverlose";
+		public static const INIT:String = "gameover";
 		
 		public function GameModel(target:IEventDispatcher = null) 
 		{

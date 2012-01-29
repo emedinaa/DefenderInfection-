@@ -7,6 +7,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero2;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero2;
+	import com.projects.limagamejam.games.defenderinfection.model.GameModel;
 	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.characters.FriendActions;
@@ -52,12 +53,16 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		private var _area:AreaView;
 		private var context:ClientContext
 		
+		private var model:GameModel
+		
 		public function GameMediator($view:Sprite, $data:*)
 		{
 			super($view);
 			mview = GameView($view);
 			_data = $data
 			context = $data.context
+			model = $data.model
+			trace("MODEL ",model)
 			
 			initView()
 		}
@@ -82,13 +87,28 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function initMove():void
 		{
-			timer = new Timer(200);
+			timer = new Timer(100);
 			timer.addEventListener(TimerEvent.TIMER, TIMER_handler);
 			timer.start();
 		}
 		
 		private function TIMER_handler(e:TimerEvent):void
 		{
+			if (numF <= 0)
+			{
+				trace("END ....EJECUTA DESTROY ");
+				timer.stop()
+				timer.removeEventListener(TimerEvent.TIMER, TIMER_handler);
+				
+				if (cmdHero)cmdHero.unexecute()
+				if(cmdHero2)cmdHero2.unexecute()
+				if(cmdShoot)cmdShoot.unexecute()
+				if (cmdShoot2) cmdShoot2.unexecute()
+				
+				model.dispatchEvent(new Event(GameModel.GAMEOVER_LOSE))
+				
+				return
+			}
 			if (enableMoveEn)
 			{
 				
@@ -160,7 +180,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function moveEnemyD():void 
 		{
-			trace(arrF.length)
+			//trace(arrF.length)
 			if (arrF.length > 0) {
 				var select:int;
 				for (var i:int = 0; i < arrF.length; i++) 
@@ -283,7 +303,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		public function createMap():void
 		{
-			trace(mview.height / 2 + "  " + mview.width / 2);
+			//trace(mview.height / 2 + "  " + mview.width / 2);
 			map = new MapUI();
 			map.x = GameConstant.PATH.x;
 			map.y = GameConstant.PATH.y;
@@ -389,6 +409,10 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdShoot2.unexecute();
 			cmdHero.execute()
 			cmdShoot.execute();
+		}
+		override public function destroy():void 
+		{
+			super.destroy();
 		}
 		
 	}

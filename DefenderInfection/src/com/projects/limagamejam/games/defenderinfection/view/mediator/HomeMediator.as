@@ -25,7 +25,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			context = $data.context;
 			
 			initView();
-			trace("home mediator ");
+			trace("home mediator MODEL",_data.model);
 		}
 		override public function initView():void 
 		{
