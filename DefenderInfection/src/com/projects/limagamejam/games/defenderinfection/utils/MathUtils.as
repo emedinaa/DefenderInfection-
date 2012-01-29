@@ -146,6 +146,11 @@ package com.projects.limagamejam.games.defenderinfection.utils
 			return newArray;
 		}
 		
+		public static function randomMinMax($min:Number,$max:Number):Number
+		{
+			return $min + ($max - $min) * Math.random();
+		}
+		
 		
 	}
 

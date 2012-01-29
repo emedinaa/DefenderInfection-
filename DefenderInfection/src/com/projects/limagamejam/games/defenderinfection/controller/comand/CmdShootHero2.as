@@ -4,6 +4,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 	import com.projects.core.icommand.ICommand;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
+	import com.projects.limagamejam.games.defenderinfection.utils.MathUtils;
+	import com.projects.limagamejam.games.defenderinfection.utils.Utils;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.GameMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.ui.Ball;
@@ -25,6 +27,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private var _t:Timer;
 		private var arrBall:Vector.<VaccineUI>
 		private var vy:Number=10;
+		private var vx:Number=10;
 		
 		public function CmdShootHero2($view:GameMediator,$context:ClientContext) 
 		{
@@ -49,7 +52,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		{
 			for (var i:int = 0; i < arrBall.length; i++) 
 			{
-				arrBall[i].x -= 20;
+				arrBall[i].x -= vx;
 				arrBall[i].y -= arrBall[i].vy;
 				arrBall[i].vy -= 1
 				arrBall[i].rotation=(180/Math.PI)*Math.atan2(arrBall[i].y-arrBall[i].tempy,arrBall[i].x-arrBall[i].tempx)-180
@@ -91,7 +94,10 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 			var ball:VaccineUI = new VaccineUI();
 			ball.x = _hero.x;
 			ball.y = _hero.y;
+			vx=MathUtils.randomMinMax(8,12)
+			vy=MathUtils.randomMinMax(8,12)
 			ball.vy = vy;
+			ball.vx = vx;
 			ball.tempx=ball.x
 			ball.tempy=ball.y
 			//ball.rotation = 90 - _hero.angle
