@@ -127,7 +127,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					
 					if (enemyMap2.hitTestObject(arrF[i])) {
 						var aux:FriendUI = arrF[i];
-						aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
+						FriendActions.deadWarrior(aux);
+						//aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
 						//arrF.slice(i, 1);
 						//_area.removeChild(aux);
 						arrF[i].active=false;
@@ -144,15 +145,16 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
-				var rad:int = Math.random()*1000%360;
-				var radioM:int = 5;
-				var enx:int = arrF[i].x + Point.polar(radioM, rad * Math.PI / 180).x;
-				var eny:int = arrF[i].y + Point.polar(radioM, rad * Math.PI / 180).y;
-				if(enx>20 && enx<980 )
-					arrF[i].x = enx;
-				if(eny>20 && eny<700)
-					arrF[i].y = eny;
-				
+				if(arrF[i].active!=false){
+					var rad:int = Math.random()*1000%360;
+					var radioM:int = 5;
+					var enx:int = arrF[i].x + Point.polar(radioM, rad * Math.PI / 180).x;
+					var eny:int = arrF[i].y + Point.polar(radioM, rad * Math.PI / 180).y;
+					if(enx>20 && enx<980 )
+						arrF[i].x = enx;
+					if(eny>20 && eny<700)
+						arrF[i].y = eny;
+				}
 			}
 		}
 		

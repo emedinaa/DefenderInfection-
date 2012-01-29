@@ -25,6 +25,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator.character
 			$obj['mc'].visible = false
 			$obj['mc1'].visible = true
 		}
+		public static function deadWarrior($obj:FriendUI):void
+		{
+			$obj['mc'].visible = true
+			$obj['mc1'].visible = false
+			$obj['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
+		}
 	}
 
 }
