@@ -55,6 +55,9 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private var model:GameModel
 		public var contTime:int = GameConstant.TIMEPLAY;
+		
+		private var _tui:TimerUI ;
+		private var minute:int = 4;
 	
 		public function GameMediator($view:Sprite, $data:*)
 		{
@@ -84,6 +87,26 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdHero.execute()
 			initMove();
 			cmdShoot.execute();
+			createTimer();
+		}
+		
+		private function createTimer():void 
+		{
+			_tui = new TimerUI();
+			_tui.y = 30;
+			_tui.x = 10;
+			//_tui.txtM.text = contTime.toString()
+			_tui=(TimerUI)(view.addChild(_tui))
+		}
+		public function updateTm():void
+		{
+			//var n:Number=contTime/1000
+			//var m:int=contTime/600
+			var s:int = (contTime % 600) % 60
+			if(s==0){minute--}
+			//trace("m ",m+" s",s)
+			if (_tui)_tui.txtM.text = "0"+minute
+			if (_tui)_tui.txtS.text = s.toString()
 		}
 		
 		private function initMove():void
@@ -95,7 +118,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function TIMER_handler(e:TimerEvent):void
 		{
-			
+
 			if (contTime == 0) {
 					destroyEvents();
 					model.dispatchEvent(new Event(GameModel.GAMEOVER_WIN))
@@ -117,6 +140,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				moveEnemy()
 				createEnemy();
 				validateCollition()
+				updateTm()
 			}
 			if (enableMoveDe)
 			{
@@ -125,6 +149,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					moveEnemyD();
 					moveFriendD();
 					contTime--;
+					updateTm()
 					if (hero2.active == false) {
 						friendSelected = false;
 						cmdHero2.unexecute();
@@ -138,6 +163,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				}
 				
 			}
+
 			e.updateAfterEvent();
 		}
 		
