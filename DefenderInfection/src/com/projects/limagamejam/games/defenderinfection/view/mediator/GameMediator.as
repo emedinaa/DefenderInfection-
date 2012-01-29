@@ -223,6 +223,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				{
 					arrE[i].active = false;
 					arrDead.push(arrE[i].posi);
+					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD);
 					enenMap--;
 					enableMoveEn = false;
 					enableMoveDe = true;
@@ -232,6 +233,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				if (map.Hit.hitTestObject(arrE[i]) && arrE[i].active == true) {
 					arrE[i].active = false;
 					arrDead.push(arrE[i].posi);
+					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD);
 					enenMap--;
 					numF--;
 				}
@@ -267,7 +269,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			var aux:int = 1;
 			arrF = new Vector.<FriendUI>();
-			var ax:Array = [450, 600, 750,830];
+			var ax:Array = [450, 600, 750, 830];
 			var ay:Array = [ 200 , 330, 520];
 			for (var j:int = 0; j < ax.length; j++) 
 			{
@@ -275,8 +277,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				{
 					if (aux > numF)
 						return;
-					var xx:int = ax[i];
-					var yy:int = ay[j];
+					var xx:int = ax[j];
+					var yy:int = ay[i];
 					var aux1:FriendUI = new FriendUI();
 					FriendActions.activeNormal(aux1);
 					aux1.x = xx;
@@ -440,7 +442,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				
 			}
 			arrE = new Vector.<EnemyUI>();
-			arrDead=[];
+			arrDead = [];
+			enenMap = 0;
 		}
 		override public function destroy():void 
 		{

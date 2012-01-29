@@ -59,11 +59,12 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 					{
 						if (arrBall[j].hitTestObject(_view.arrE[k]))
 						{
-							if (_view.arrE[k].active == true)
+							if (_view.arrE[k].active == true){
 								_view.arrDead.push(_view.arrE[k].posi);
-							_view.arrE[k]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD)	
-							_view.arrE[k].active = false
-							_view.enenMap--
+								_view.arrE[k]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD)	
+								_view.arrE[k].active = false
+								_view.enenMap--
+							}
 							_view.mview.removeChild(arrBall[j]);
 							arrBall.splice(j,1)
 							//    list.splice(i,1);
