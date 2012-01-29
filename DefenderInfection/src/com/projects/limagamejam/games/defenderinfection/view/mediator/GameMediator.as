@@ -212,7 +212,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			_area.mc_base.scaleY = 0
 			TweenLite.to(_area.mc_base, 0.8, {scaleX: 1, scaleY: 1});
 			mview.addChild(_area)
-			FriendsColocation();
+			friendsColocation();
 			
 			if (enemyMap2== null)
 				enemyMap2 = new EnemyMap2();
@@ -221,38 +221,30 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			_area.addChild(enemyMap2);
 		}
 		
-		private function FriendsColocation():void
+		private function friendsColocation():void
 		{
-			var xx:int = 400;
-			var yy:int = 200;
 			var aux:int = 1;
 			arrF = new Vector.<FriendUI>();
-			for (var i:int = 0; i < numF; i++)
+			var ax:Array = [450, 600, 750,830];
+			var ay:Array = [ 130 , 330, 520];
+			for (var j:int = 0; j < ax.length; j++) 
 			{
-				
-				var alex:int = xx + Math.random() % 60;
-				var aley:int = yy + Math.random() % 100;
-				if (aux < 5)
+				for (var i:int = 0; i < ay.length; i++) 
 				{
-					yy += 80;
+					if (aux > numF)
+						return;
+					var xx:int = ax[i];
+					var yy:int = ay[j];
+					var aux1:FriendUI = new FriendUI();
+					aux1.x = xx;
+					aux1.y = yy;
+					aux1.posi = aux-1;
+					aux1.active = true;
+					aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
+					arrF.push(aux1);
+					_area.addChild(aux1);
+					aux++;
 				}
-				else
-				{
-					xx = 600;
-					yy = 120;
-					aux = 1;
-				}
-				aux++;
-				trace(alex + " " + aley);
-				var aux1:FriendUI = new FriendUI();
-				aux1.x = alex;
-				aux1.y = aley;
-				aux1.posi = i;
-				aux1.active = true;
-				aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
-				arrF.push(aux1);
-				_area.addChild(aux1);
-				
 			}
 			//hero2 = new FriendUI();
 			//hero2.x = 250;
