@@ -111,6 +111,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			{
 				if (enemyMap2.hitTestObject(arrF[i])) {
 					var aux:FriendUI = arrF[i];
+					aux['mc'].gotoAndPlay(CharacterConstant.FRIEND_DEAD)
 					arrF.slice(i, 1);
 					_area.removeChild(aux);
 					numF--;
