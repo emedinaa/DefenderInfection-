@@ -7,6 +7,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero2;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero2;
+	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
@@ -289,11 +290,13 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		public function createEnemy():void
 		{
+			//trace("create Enemy ");
 			creationTime++;
 			
 			if (enenMap < GameConstant.NUMENEMY && creationTime == GameConstant.FRECUENCYOUT)
 			{
 				var position:int = createPosition();
+				
 				if (arrE.length < GameConstant.NUMENEMY && !enemyDead())
 				{
 					var aux:EnemyUI = new EnemyUI();
@@ -304,12 +307,15 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					aux.active = true; //para ver si esta muerto
 					aux.radio = GameConstant.RADIO;
 					aux.posi = arrE.length;
+					aux['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
 					arrE.push(aux);
 					mview.addChild(aux);
 				}
 				else
 				{
 					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
+					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
+					var i:int = arrDead.shift();
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
 					//arrE[i].rotation = position - 90;
@@ -323,7 +329,10 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			if (creationTime == GameConstant.FRECUENCYOUT)
 				creationTime = 0;
 		}
-		
+		/**
+		 * al menos un enemigo vivo
+		 * @return
+		 */
 		public function enemyDead():Boolean
 		{
 			var r:Boolean = false;
