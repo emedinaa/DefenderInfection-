@@ -11,6 +11,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.GOWinMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.HomeMediator;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.IntructionMediator;
+	import com.reintroducing.sound.SoundManager;
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -27,6 +28,7 @@ package com.projects.limagamejam.games.defenderinfection.view
 		private var _currentMed:AbstractMediator;
 		private var content:Sprite;
 		private var _gameModel:GameModel;
+		private var _managerSnd:SoundManager;
 		
 		public function ClientContext($view:AbstractView,$stage:Stage) 
 		{
@@ -44,12 +46,22 @@ package com.projects.limagamejam.games.defenderinfection.view
 			content.mouseEnabled = false;
 			
 			view.addChild(content);
+			initSound()
+			
 			_gameModel = new GameModel();
 			_gameModel.addEventListener(GameModel.GAMEOVER_WIN, GAMEOVER_WIN_handler);
 			_gameModel.addEventListener(GameModel.GAMEOVER_LOSE, GAMEOVER_LOSE_handler);
 			
 			_stage.addEventListener(Event.RESIZE, RESIZE_handler);
 			changeView("home", { context:this, model:_gameModel } )
+			
+		}
+		
+		private function initSound():void 
+		{
+			_managerSnd = SoundManager.getInstance()
+			_managerSnd.addExternalSound("media/InfectedDefender.mp3","snd1")
+			_managerSnd.playSound("snd1",1,0,800,false)
 			
 		}
 		

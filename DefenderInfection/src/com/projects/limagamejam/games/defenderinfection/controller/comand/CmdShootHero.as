@@ -1,5 +1,6 @@
 package com.projects.limagamejam.games.defenderinfection.controller.comand 
 {
+	import com.greensock.TweenLite;
 	import com.projects.core.icommand.ICommand;
 	import com.projects.core.iview.AbstractMediator;
 	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
@@ -23,7 +24,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private var _hero:HeroUI
 		
 		private var _t:Timer;
-		private var arrBall:Vector.<Ball>
+		private var arrBall:Vector.<BulletUI> 
 		
 		public function CmdShootHero($view:GameMediator,$context:ClientContext) 
 		{
@@ -36,7 +37,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		public function execute():void 
 		{
-			arrBall = new Vector.<Ball>();
+			arrBall = new Vector.<BulletUI>();
 			_context.stage.addEventListener(MouseEvent.CLICK, CLICK_handler);
 			if(_t==null)
 				_t = new Timer(100, 0);
@@ -83,12 +84,15 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		private function createBall():void 
 		{
-			var ball:Ball = new Ball();
+			//var ball:Ball = new Ball();
+			var ball:BulletUI=new BulletUI()
 			ball.x = _hero.x;
 			ball.y = _hero.y;
 			ball.rotation = 90 - _hero.angle
-			ball.radio= 100
-			arrBall.push(Ball(_view.mview.addChild(ball)))
+			ball.radio = 100
+			ball.alpha = 0;
+			TweenLite.to(ball,0.5,{alpha:1})
+			arrBall.push(BulletUI(_view.mview.addChild(ball)))
 			
 		}
 		
