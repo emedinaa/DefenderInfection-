@@ -37,7 +37,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		{
 			arrBall = new Vector.<Ball>();
 			_context.stage.addEventListener(MouseEvent.CLICK, CLICK_handler);
-			_t = new Timer(100, 0);
+			if(_t==null)
+				_t = new Timer(100, 0);
 			_t.addEventListener(TimerEvent.TIMER,TIMER_handler)
 			_t.start();
 		}

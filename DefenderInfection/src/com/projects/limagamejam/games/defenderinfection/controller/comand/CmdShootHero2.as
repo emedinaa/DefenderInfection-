@@ -47,28 +47,27 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		{
 			for (var i:int = 0; i < arrBall.length; i++) 
 			{
-				//arrBall[i].radio+=40
-				//arrBall[i].x=GameConstant.PATH.x+Point.polar(arrBall[i].radio,arrBall[i].rotation*Math.PI/180).x
-				//arrBall[i].y=GameConstant.PATH.y+Point.polar(arrBall[i].radio,arrBall[i].rotation*Math.PI/180).y
 				arrBall[i].x -= 10;
 			}
-			/*
 			for (var j:int = 0; j < arrBall.length; j++) 
 			{
 						
-				if (arrBall[j].hitTestObject(_view.arrE[k]))
+				if (arrBall[j].hitTestObject(_view.enemyMap2))
 				{
-					if (_view.arrE[k].active == true)
-					_view.arrDead.push(_view.arrE[k].posi);
-					_view.arrE[k].active = false
-					_view.enenMap--
 					_view.mview.removeChild(arrBall[j]);
-					arrBall.splice(j,1)
+					arrBall.splice(j, 1)
+					while(arrBall.length>0) 
+					{
+						_view.mview.removeChild(arrBall[0]);
+						arrBall.splice(0, 1)
+					}
 					//    list.splice(i,1);
+					_view.swapMap();
 					return
 				}
 				
-			}*/
+			}
+			
 			e.updateAfterEvent()
 		}
 		

@@ -41,9 +41,10 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		public var arrF:Vector.<FriendUI>;
 		public var numF:int = GameConstant.NUMFRIENDS;
 		public var hero2:FriendUI;
-		public var enableMoveDe:Boolean = false;
+		public var enemyMap2:EnemyMap2;
 		
 		private var enableMoveEn:Boolean = true;
+		private var enableMoveDe:Boolean = false;
 		private var _area:AreaView;
 		private var context:ClientContext
 		
@@ -86,46 +87,90 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		{
 			if (enableMoveEn)
 			{
-				moveEnemy()
+				
+					moveEnemy()
 				createEnemy();
-				if (arrE.length > 5 && GameConstant.FRECUENCYOUT - 1 == creationTime)
-				{
-					var i:int = Math.random() * 1000 % (GameConstant.NUMENEMY - 5);
-					arrE[i].active = false;
-					enenMap--;
-				}
 				validateCollition()
 			}
 			if (enableMoveDe)
 			{
-				moveEnemyD();
-				moveFriendD();
+				if(hero2!=null){
+					moveEnemyD();
+					moveFriendD();
+					checkColisionM2();
+				}
 				
 			}
 			e.updateAfterEvent();
+		}
 		
+		private function checkColisionM2():void 
+		{
+			for (var i:int = 0; i < arrF.length; i++) 
+			{
+				if (enemyMap2.hitTestObject(arrF[i])) {
+					
+					arrF.slice(i, 1);
+					_area.removeChild(arrF[i])
+					numF--
+					break;
+				}
+			}
+			
 		}
 		
 		private function moveFriendD():void 
 		{
 			
+			for (var i:int = 0; i < arrF.length; i++) 
+			{
+				var rad:int = Math.random()*1000%360;
+				var radioM:int = 5;
+				var enx:int = arrF[i].x + Point.polar(radioM, rad * Math.PI / 180).x;
+				var eny:int = arrF[i].y + Point.polar(radioM, rad * Math.PI / 180).y;
+				if(enx>20 && enx<980 )
+					arrF[i].x = enx;
+				if(eny>20 && eny<700)
+					arrF[i].y = eny;
+				
+			}
 		}
 		
 		private function moveEnemyD():void 
 		{
+			var select:int = Math.random()*1000 % arrF.length;
+			var rad:int = 0;
+			if(enemyMap2.x<arrF[select].x)
+				rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI ;
+			else
+				rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI+180 ;
+			var radioM:int = 5 ;
+			enemyMap2.x = enemyMap2.x + Point.polar(radioM, rad * Math.PI / 180).x;
+			enemyMap2.y = enemyMap2.y + Point.polar(radioM, rad * Math.PI / 180).y;
 			
 		}
 		
 		private function validateCollition():void
 		{
+			//trace("hola "+hero.Hit);
 			for (var i:int = 0; i < arrE.length; i++)
 			{
-				if (hero.hitTestObject(arrE[i]))
+				
+				if (hero.Hit.hitTestObject(arrE[i])&&arrE[i].active==true)
 				{
+					arrE[i].active = false;
+					arrDead.push(arrE[i].posi);
+					enenMap--;
 					enableMoveEn = false;
 					enableMoveDe = true;
 					showArea();
 					return;
+				}
+				if (map.Hit.hitTestObject(arrE[i]) && arrE[i].active == true) {
+					arrE[i].active = false;
+					arrDead.push(arrE[i].posi);
+					enenMap--;
+					numF--;
 				}
 			}
 		}
@@ -142,10 +187,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			TweenLite.to(_area.mc_base, 0.8, {scaleX: 1, scaleY: 1});
 			mview.addChild(_area)
 			FriendsColocation();
-			cmdHero2 = new CmdMoveHero2(this, _data.context);
-			cmdHero2.execute();
-			cmdShoot2 =new CmdShootHero2(this, _data.context);
-			cmdShoot2.execute();
+			
+			if (enemyMap2== null)
+				enemyMap2 = new EnemyMap2();
+			enemyMap2.x= 120;
+			enemyMap2.y = 300;
+			_area.addChild(enemyMap2);
 		}
 		
 		private function FriendsColocation():void
@@ -175,22 +222,30 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				aux1.x = alex;
 				aux1.y = aley;
 				aux1.posi = i;
-				//aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
+				aux1.addEventListener(MouseEvent.CLICK , CLICK_escoger)
 				arrF.push(aux1);
 				_area.addChild(aux1);
 				
 			}
-			hero2 = new FriendUI();
-			hero2.x = 250;
-			hero2.y = 250;
-			_area.addChild(hero2);
+			//hero2 = new FriendUI();
+			//hero2.x = 250;
+			//hero2.y = 250;
+		 //	_area.addChild(hero2);
 		}
 		
 		
 		private function CLICK_escoger(e:MouseEvent):void
 		{
-			hero2 = e.target();
+			hero2 = FriendUI(e.currentTarget);
 			hero2.x = hero2.x + 50;
+			for (var i:int = 0; i < arrF.length; i++) 
+			{
+				arrF[i].removeEventListener(MouseEvent.CLICK , CLICK_escoger);
+			}
+			cmdHero2 = new CmdMoveHero2(this, _data.context);
+			cmdHero2.execute();
+			cmdShoot2 =new CmdShootHero2(this, _data.context);
+			cmdShoot2.execute();
 			trace("me escogiste:");
 		}
 		
@@ -292,6 +347,15 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				}
 			}
 		}
-	
+
+		public function swapMap():void {
+			mview.removeChild(_area);
+			enableMoveEn = true;
+			enableMoveDe = false;
+			cmdHero2.unexecute();
+			cmdShoot2.unexecute();
+			cmdHero.execute()
+			cmdShoot.execute();
+		}
 	}
 }
