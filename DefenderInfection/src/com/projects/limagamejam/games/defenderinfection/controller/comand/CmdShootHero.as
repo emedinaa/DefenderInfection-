@@ -86,6 +86,8 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private function createBall():void 
 		{
 			//var ball:Ball = new Ball();
+			_view.mSound.addExternalSound("media/submachine_gun.mp3","sndShoot")
+			_view.mSound.playSound("sndShoot")
 			var ang:Number = 90 - _hero.angle;
 			
 			var ball:BulletUI=new BulletUI()

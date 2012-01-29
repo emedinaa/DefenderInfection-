@@ -3,6 +3,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import air.update.utils.Constants;
 	import com.greensock.TweenLite;
 	import com.projects.core.iview.AbstractMediator;
+	import com.projects.core.utils.DelayTimer;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdMoveHero2;
 	import com.projects.limagamejam.games.defenderinfection.controller.comand.CmdShootHero;
@@ -11,6 +12,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 	import com.projects.limagamejam.games.defenderinfection.utils.CharacterConstant;
 	import com.projects.limagamejam.games.defenderinfection.view.ClientContext;
 	import com.projects.limagamejam.games.defenderinfection.view.mediator.characters.FriendActions;
+	import com.reintroducing.sound.SoundManager;
 	import flash.display.Sprite;
 	import com.projects.limagamejam.games.defenderinfection.utils.GameConstant;
 	import flash.events.Event;
@@ -58,6 +60,12 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private var _tui:TimerUI ;
 		private var minute:int = 4;
+		
+		private var mutation:Mutacion
+		private var healing:Curacion
+		
+		private var delay:DelayTimer;
+		public var mSound:SoundManager;
 	
 		public function GameMediator($view:Sprite, $data:*)
 		{
@@ -66,7 +74,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			_data = $data
 			context = $data.context
 			model = $data.model
-			trace("MODEL ",model)
+			mSound=$data.msnd
+			//trace("MODEL ",model)
 			
 			initView()
 		}
@@ -88,6 +97,19 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			initMove();
 			cmdShoot.execute();
 			createTimer();
+			createTransition()
+		}
+		
+		private function createTransition():void 
+		{
+			healing = new Curacion()
+			mutation = new Mutacion()
+			healing.stop()
+			mutation.stop()
+			healing=(Curacion)(view.addChild(healing))
+			mutation = (Mutacion)(view.addChild(mutation))
+			healing.visible=false
+			mutation.visible=false
 		}
 		
 		private function createTimer():void 
@@ -101,9 +123,13 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		public function updateTm():void
 		{
 			//var n:Number=contTime/1000
-			var m:int=contTime/600
-			var s:int = (contTime/10) %60
+			
+			//var m:int=contTime/600
+			var m:int = (contTime / 600)
+			var s:int = (contTime / 10) % 60
 			GameConstant.NUMENEMY = 10 - m;
+			//if(s==0){minute--}
+
 			//trace("m ",m+" s",s)
 			if (_tui)_tui.txtM.text = "0" + m.toString();
 			if (_tui)_tui.txtS.text = s.toString()
@@ -124,7 +150,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					model.dispatchEvent(new Event(GameModel.GAMEOVER_WIN))
 					trace("WINNN")
 			}
-			trace(contTime);
+			//trace(contTime);
 			if (numF <= 0)
 			{
 				trace("END ....EJECUTA DESTROY ");
@@ -233,7 +259,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI ;
 				else
 					rad = Math.atan((enemyMap2.y - arrF[select].y) / (enemyMap2.x - arrF[select].x)) * 180 / Math.PI+180 ;
-				var radioM:int = 5 ;
+				var radioM:int = 7 ;
 				enemyMap2.x = enemyMap2.x + Point.polar(radioM, rad * Math.PI / 180).x;
 				enemyMap2.y = enemyMap2.y + Point.polar(radioM, rad * Math.PI / 180).y;
 			}
@@ -254,7 +280,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					enenMap--;
 					enableMoveEn = false;
 					enableMoveDe = true;
-					showArea();
+					showTransition()
+					//showArea();
 					return;
 				}
 				if (map.Hit.hitTestObject(arrE[i]) && arrE[i].active == true) {
@@ -267,13 +294,70 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			}
 		}
 		
+		private function showTransition():void 
+		{
+			cmdHero.unexecute()
+			cmdShoot.unexecute()
+			for (var i:int = 0; i < arrE.length; i++) 
+			{
+				arrE[i].visible=false
+			}
+			mutation.alpha=0
+			TweenLite.to(mutation, 1, { alpha:1, onComplete:completeMutation })
+			mutation.visible = true
+			//mutation.gotoAndPlay(1)
+			//view.addChild(_tui)
+		}
+		
+		public function hideTransition():void
+		{
+			trace("hide transition ");
+			mutation.visible=false
+			mview.removeChild(_area);
+			enableMoveDe = false;
+			friendSelected=false
+			cmdHero2.unexecute();
+			cmdShoot2.unexecute();
+			
+			
+			healing.alpha=0
+			TweenLite.to(healing, 0.8, { alpha:1, onComplete:completeHealing })
+			healing.visible = true
+		}
+		
+		private function completeHealing():void 
+		{
+			trace("completeHealing ");
+			healing.gotoAndPlay(1)
+			delay = new DelayTimer(hideArea, 2000);
+			
+		}
+		
+		private function hideArea():void 
+		{
+			healing.visible = false
+			for (var i:int = 0; i <arrE.length  ; i++) 
+			{
+				arrE[i].visible=true
+			}
+			swapMap()
+		}
+		
+		private function completeMutation():void 
+		{
+			mutation.gotoAndPlay(1)
+			delay = new DelayTimer(showArea, 2000);
+			
+			//showArea()
+		}
+		
 		/**
 		 * Muestra el segundo MAPA ...
 		 */
 		private function showArea():void
 		{
-			cmdHero.unexecute()
-			cmdShoot.unexecute();
+			//cmdHero.unexecute()
+			//cmdShoot.unexecute();
 			
 			_area = new AreaView();
 			_area.bg.width = context.stage.stageWidth
@@ -452,13 +536,19 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			}
 		}
 
-		public function swapMap():void {
-			mview.removeChild(_area);
+		public function swapMap():void 
+		{
+/*			mview.removeChild(_area);
 			enableMoveEn = true;
 			enableMoveDe = false;
+<<<<<<< HEAD
 			friendSelected = false;
+=======
+			friendSelected=false
+>>>>>>> e120c893cd13310ec854e6bb31ce9f1432da7d3a
 			cmdHero2.unexecute();
-			cmdShoot2.unexecute();
+			cmdShoot2.unexecute();*/
+			enableMoveEn = true;
 			cmdHero.execute()
 			cmdShoot.execute();
 			limpiarEnemigos();

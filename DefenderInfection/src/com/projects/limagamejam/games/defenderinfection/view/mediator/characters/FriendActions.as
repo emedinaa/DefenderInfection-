@@ -16,7 +16,8 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator.character
 		public static function activeNormal($obj:FriendUI):void
 		{
 			$obj['mc1'].visible = false
-			$obj['mc'].gotoAndPlay(CharacterConstant.FRIEND_INIT)
+			$obj['mc'].gotoAndStop(CharacterConstant.FRIEND_INIT)
+			//$obj['mc'].gotoAndPlay(CharacterConstant.FRIEND_INIT)
 			$obj['mc'].visible = true
 		}
 			
