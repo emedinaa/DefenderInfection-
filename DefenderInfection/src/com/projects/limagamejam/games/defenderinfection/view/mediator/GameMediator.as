@@ -224,10 +224,14 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			}
 		}
 		
+		/**
+		 * Muestra el segundo MAPA ...
+		 */
 		private function showArea():void
 		{
 			cmdHero.unexecute()
 			cmdShoot.unexecute();
+			
 			_area = new AreaView();
 			_area.bg.width = context.stage.stageWidth
 			_area.bg.height = context.stage.stageHeight
@@ -239,8 +243,9 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			
 			if (enemyMap2== null)
 				enemyMap2 = new EnemyMap2();
-			enemyMap2.x= 120;
-			enemyMap2.y = 300;
+				
+			enemyMap2.x=100;
+			enemyMap2.y =300;
 			_area.addChild(enemyMap2);
 		}
 		
@@ -249,7 +254,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			var aux:int = 1;
 			arrF = new Vector.<FriendUI>();
 			var ax:Array = [450, 600, 750,830];
-			var ay:Array = [ 130 , 330, 520];
+			var ay:Array = [ 200 , 330, 520];
 			for (var j:int = 0; j < ax.length; j++) 
 			{
 				for (var i:int = 0; i < ay.length; i++) 

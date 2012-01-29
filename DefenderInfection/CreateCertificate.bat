@@ -6,7 +6,8 @@
 :: http://livedocs.adobe.com/flex/3/html/distributing_apps_4.html#1037515
 
 :: Path to Flex SDK binaries
-set PATH=%PATH%;$(FlexSDK)\bin
+::set PATH=%PATH%;$(FlexSDK)\bin
+set PATH=%PATH%;"D:\DEV\SDK\FLEX\4.5.1.8\flex_sdk_4.5.0.18623\bin"
 
 :: Certificate information
 set NAME="DefenderInfection"
