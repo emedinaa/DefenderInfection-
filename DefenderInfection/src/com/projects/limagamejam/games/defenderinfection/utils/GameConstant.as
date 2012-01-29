@@ -8,7 +8,7 @@ package com.projects.limagamejam.games.defenderinfection.utils
 	public class GameConstant 
 	{
 		public static const RADIO:int = 360;
-		public static const NUMENEMY:int = 10;
+		public static var NUMENEMY:int = 5;
 		public static const NOMBRE:String = "";
 		public static const FRECUENCYOUT:int = 10 //6
 		public static const CANT:int = 10;

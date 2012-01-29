@@ -101,11 +101,11 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		public function updateTm():void
 		{
 			//var n:Number=contTime/1000
-			//var m:int=contTime/600
-			var s:int = (contTime % 600) % 60
-			if(s==0){minute--}
+			var m:int=contTime/600
+			var s:int = (contTime/10) %60
+			GameConstant.NUMENEMY = 10 - m;
 			//trace("m ",m+" s",s)
-			if (_tui)_tui.txtM.text = "0"+minute
+			if (_tui)_tui.txtM.text = "0" + m.toString();
 			if (_tui)_tui.txtS.text = s.toString()
 		}
 		
@@ -205,7 +205,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			
 			for (var i:int = 0; i < arrF.length; i++) 
 			{
-				if(arrF[i].active!=false){
+				if(arrF[i].active!=false&&i!=hero2.posi){
 					var rad:int = Math.random()*1000%360;
 					var radioM:int = 5;
 					var enx:int = arrF[i].x + Point.polar(radioM, rad * Math.PI / 180).x;
@@ -250,6 +250,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 					arrE[i].active = false;
 					arrDead.push(arrE[i].posi);
 					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_DEAD);
+					
 					enenMap--;
 					enableMoveEn = false;
 					enableMoveDe = true;
@@ -323,6 +324,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 		
 		private function CLICK_escoger(e:MouseEvent):void
 		{
+			
 			hero2 = FriendUI(e.currentTarget);
 			FriendActions.activeWarrior(hero2)
 			
@@ -336,7 +338,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			cmdShoot2 =new CmdShootHero2(this, _data.context);
 			cmdShoot2.execute();
 			friendSelected = true;
-			trace("me escogiste:");
+			//trace("me escogiste:");
 		}
 		
 		public function createHero():void
@@ -384,12 +386,13 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 				else
 				{
 					var i:int = arrDead.shift();//devuelve el primer enemigo que murio
-					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
+					
 
 					//var i:int = arrDead.shift();
 
 					arrE[i].x = GameConstant.PATH.x + Point.polar(GameConstant.RADIO, position * Math.PI / 180).x;
 					arrE[i].y = GameConstant.PATH.y + Point.polar(GameConstant.RADIO, position * Math.PI / 180).y;
+					arrE[i]['mc'].gotoAndPlay(CharacterConstant.ENEMY_INIT)
 					//arrE[i].rotation = position - 90;
 					arrE[i].position = position;
 					arrE[i].visible = true;
@@ -453,6 +456,7 @@ package com.projects.limagamejam.games.defenderinfection.view.mediator
 			mview.removeChild(_area);
 			enableMoveEn = true;
 			enableMoveDe = false;
+			friendSelected = false;
 			cmdHero2.unexecute();
 			cmdShoot2.unexecute();
 			cmdHero.execute()
