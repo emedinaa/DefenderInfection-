@@ -24,6 +24,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		private var creation:Boolean = false;
 		private var _t:Timer;
 		private var arrBall:Vector.<VaccineUI>
+		private var vy:Number=10;
 		
 		public function CmdShootHero2($view:GameMediator,$context:ClientContext) 
 		{
@@ -36,6 +37,7 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		
 		public function execute():void 
 		{
+			vy=20;
 			arrBall = new Vector.<VaccineUI>();
 			_context.stage.addEventListener(MouseEvent.CLICK, CLICK_handler);
 			_t = new Timer(100, 0);
@@ -47,7 +49,14 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 		{
 			for (var i:int = 0; i < arrBall.length; i++) 
 			{
-				arrBall[i].x -= 10;
+				arrBall[i].x -= 20;
+				arrBall[i].y -= arrBall[i].vy;
+				arrBall[i].vy -= 1
+				arrBall[i].rotation=(180/Math.PI)*Math.atan2(arrBall[i].y-arrBall[i].tempy,arrBall[i].x-arrBall[i].tempx)-180
+				
+				arrBall[i].tempx = arrBall[i].x;
+				arrBall[i].tempy = arrBall[i].y;
+
 			}
 			for (var j:int = 0; j < arrBall.length; j++) 
 			{
@@ -85,6 +94,9 @@ package com.projects.limagamejam.games.defenderinfection.controller.comand
 				var ball:VaccineUI = new VaccineUI();
 				ball.x = _hero.x;
 				ball.y = _hero.y;
+				ball.vy = vy;
+				ball.tempx=ball.x
+				ball.tempy=ball.y
 			//ball.rotation = 90 - _hero.angle
 			//ball.radio= 100
 				arrBall.push(VaccineUI(_view.mview.addChild(ball)))
